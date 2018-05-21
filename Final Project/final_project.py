@@ -36,7 +36,9 @@ labels = data['diagnosis']
 print (labels.value_counts())
 
 
-data = data.drop('diagnosis', axis=1)
-labels = labels.map({'B': 0, 'M': 1})
-display(data.head())
-print ("Feature columns ({} total features):\n{}").format(len(data.columns), list(data.columns))
+
+
+#data = data.drop('diagnosis', axis=1)
+#labels = labels.map({'B': 0, 'M': 1})
+#display(data.head())
+#print ("Feature columns ({} total features):\n{}").format(len(data.columns), list(data.columns))

@@ -22,28 +22,37 @@ data = pd.read_csv('data.csv')
 
 data = data.drop('Unnamed: 32', axis=1)
 
-id_data = data['id']
+#id_data = data['id']
+#labels = data['diagnosis']
 
-labels = data['diagnosis']
-
+#Ambil classnya sebelum di drop
 col_list = ['diagnosis']
 label = data[col_list]
 
+#Drop id sama diagnosis
 clean_data = data.drop('id', axis=1)
 clean_data = clean_data.drop('diagnosis', axis=1)
 
+#Balik tabelnya buat dikmeans
 clean_data_transposed = clean_data.transpose()
 
+#Kmeans pake k=7
 kmeans = KMeans(n_clusters=7)
 kmeans.fit(clean_data_transposed)
 
+#Ambil center2 barunya
 centernya = kmeans.cluster_centers_
+
+#Balik lagi tabelnya
 fitur_baru = centernya.transpose()
+
+#Convert jadi DataFrame biar bisa digabung sama classnya
 fitur_baru = pd.DataFrame(fitur_baru)
 
-a = pd.Series(labels).values
-b = np.array(fitur_baru)
+#a = pd.Series(labels).values
+#b = np.array(fitur_baru)
 
+#Digabung fitur baru sama classnya
 kmeans_result = pd.concat([fitur_baru, label], axis=1)
 
 

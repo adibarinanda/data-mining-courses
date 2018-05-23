@@ -12,16 +12,9 @@ Created on Wed May 16 10:16:15 2018
 @author: adibarinanda
 """
 
-import matplotlib.pyplot as plt
-from collections import Counter
-from imblearn.under_sampling import NearMiss
-from imblearn.over_sampling import SMOTE
 import pandas as pd
-from sklearn.decomposition import PCA
-from sklearn.model_selection import cross_val_score
-from sklearn import neighbors
-import pandas as pd
-from IPython.display import display
+from sklearn.cluster import KMeans
+import numpy as np
 
 print (__doc__)
 
@@ -33,9 +26,25 @@ id_data = data['id']
 
 labels = data['diagnosis']
 
-print (labels.value_counts())
+col_list = ['diagnosis']
+label = data[col_list]
 
+clean_data = data.drop('id', axis=1)
+clean_data = clean_data.drop('diagnosis', axis=1)
 
+clean_data_transposed = clean_data.transpose()
+
+kmeans = KMeans(n_clusters=7)
+kmeans.fit(clean_data_transposed)
+
+centernya = kmeans.cluster_centers_
+fitur_baru = centernya.transpose()
+fitur_baru = pd.DataFrame(fitur_baru)
+
+a = pd.Series(labels).values
+b = np.array(fitur_baru)
+
+kmeans_result = pd.concat([fitur_baru, label], axis=1)
 
 
 #data = data.drop('diagnosis', axis=1)

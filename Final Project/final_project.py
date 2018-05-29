@@ -10,7 +10,7 @@ from sklearn.cluster import KMeans
 from sklearn import svm
 from sklearn.cross_validation import train_test_split
 from sklearn.metrics import confusion_matrix
-import numpy as np
+
 
 print (__doc__)
 

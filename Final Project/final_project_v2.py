@@ -32,7 +32,9 @@ def KSVM(clean_data, label2):
     #split trainset sama testset data KSVM
     fitur_baru_train, fitur_baru_test, label2_train, label2_test = train_test_split(fitur_baru, label2, test_size = 0.41, random_state=42)
     #panggil library svm
+    start_train=timeit.default_timer()
     classify_ksvm = svm.SVC()
+    stop_train=timeit.default_timer()
     #fit record sama label ke fungsi svm
     classify_ksvm.fit(fitur_baru_train, label2_train)
     test_predicted_class_ksvm = classify_ksvm.predict(fitur_baru_test)
@@ -43,7 +45,9 @@ def KSVM(clean_data, label2):
     overall_test_accuracy_ksvm = test_accuracy_ksvm[0,0]/181*100
     
     stop=timeit.default_timer()
+    time_result_train=stop_train-start_train
     time_result=stop-start
+    timer_log.append("Waktu training tanpa K-Means : "+str(time_result_train)+" detik")
     timer_log.append("Waktu klasifikasi dengan SVM : "+str(time_result)+" detik")
     
     return overall_test_accuracy_ksvm
@@ -51,15 +55,19 @@ def KSVM(clean_data, label2):
 def SVM(clean_data, label2):
     start=timeit.default_timer()
     
-    clean_data_train, clean_data_test, label2_train, label2_test = train_test_split(clean_data, label2, test_size=0.41, random_state=42)
+    clean_data_train, clean_data_test, label2_train, label2_test = train_test_split(clean_data, label2, test_size=0.5, random_state=42)
+    start_train=timeit.default_timer()
     classify_svm = svm.SVC()
+    stop_train=timeit.default_timer()
     classify_svm.fit(clean_data_train, label2_train)
     test_predicted_class_svm = classify_svm.predict(clean_data_test)
     test_accuracy_svm = confusion_matrix(label2_test, test_predicted_class_svm)
     overall_test_accuracy_svm = test_accuracy_svm[0,0]/234*100
     
     stop=timeit.default_timer()
+    time_result_train=stop_train-start_train
     time_result=stop-start
+    timer_log.append("Waktu training dengan K-Means : "+str(time_result_train)+" detik")
     timer_log.append("Waktu klasifikasi dengan K-SVM : "+str(time_result)+" detik")
     
     return overall_test_accuracy_svm

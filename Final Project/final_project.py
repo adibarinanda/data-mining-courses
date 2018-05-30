@@ -44,7 +44,7 @@ fitur_baru = centernya.transpose()
 fitur_baru = pd.DataFrame(fitur_baru)
 
 #split trainset sama testset data SVM
-clean_data_train, clean_data_test, label2_train, label2_test = train_test_split(clean_data, label2, test_size=0.41, random_state=42)
+clean_data_train, clean_data_test, label2_train, label2_test = train_test_split(clean_data, label2, test_size=0., random_state=42)
 
 #split trainset sama testset data KSVM
 fitur_baru_train, fitur_baru_test, label2_train, label2_test = train_test_split(fitur_baru, label2, test_size = 0.41, random_state=42)
